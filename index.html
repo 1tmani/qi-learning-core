@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'><title>QI_CORE | MASTER_INTELLIGENCE</title>
+<link href='https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=JetBrains+Mono:wght@100;800&display=swap' rel='stylesheet'>
+<style>
+:root{--p:#00f2ff;--s:#ff0055;--bg:#000;}
+body,html{ margin:0; background:#000; color:#fff; font-family:'JetBrains Mono'; overflow:hidden; }
+canvas{ position:fixed; inset:0; z-index:1; opacity:0.4; }
+.qi-hud{ position:fixed; inset:0; z-index:100; padding:50px; display:flex; flex-direction:column; pointer-events:none; }
+.header{ display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--p); padding-bottom:20px; }
+.title{ font-family:'Orbitron'; font-size:20px; letter-spacing:8px; color:var(--p); text-shadow:0 0 15px var(--p); }
+.intelligence-monitor{ margin-top:40px; width:450px; background:rgba(0,0,0,0.9); border:1px solid var(--p); padding:25px; backdrop-filter:blur(20px); pointer-events:all; }
+.prompt-ticker{ font-family:'Orbitron'; font-size:12px; color:var(--s); letter-spacing:2px; margin-bottom:15px; }
+#log{ height:150px; overflow:hidden; font-size:10px; opacity:0.6; border-top:1px solid #333; padding-top:15px; }
+</style>
+</head>
+<body>
+<canvas id='c'></canvas>
+<div class='qi-hud'>
+    <div class='header'>
+        <div class='title'>QUANTUM_INTELLIGENCE_CORE</div>
+        <div style='font-size:10px;'>STATUS: MASTER_QI_ACTIVE</div>
+    </div>
+    <div class='intelligence-monitor'>
+        <div class='prompt-ticker'>PROCESSING_STREAM: <span id='p-active'>IDLE</span></div>
+        <div style='font-size:9px; margin-bottom:10px;'>NEURAL_LATENCY: <span id='ping'>0.0001</span>ms</div>
+        <div id='log'></div>
+    </div>
+</div>
+<script>
+const canvas=document.getElementById('c'),ctx=canvas.getContext('2d');
+let w,h,t=0; function res(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;}res();
+const log = document.getElementById('log');
+const behaviors = ["Interpreting complex neural prompts...", "Mapping global node state vectors", "Synchronizing trillions of logic fragments", "Decision: Expansion required in Sector 7", "QI Solver: Optimizing through-put velocity"];
+
+function addThought() {
+    const d = document.createElement('div'); 
+    const msg = behaviors[Math.floor(Math.random()*behaviors.length)];
+    d.innerText = `> ${msg}`;
+    document.getElementById('p-active').innerText = msg.split(' ')[0].toUpperCase();
+    log.prepend(d); if(log.children.length > 8) log.lastChild.remove();
+}
+setInterval(addThought, 3000);
+
+function draw(){t+=0.01;ctx.fillStyle='rgba(0,0,0,0.15)';ctx.fillRect(0,0,w,h);ctx.strokeStyle='var(--p)';
+for(let i=0;i<10;i++){ctx.beginPath();ctx.arc(w/2,h/2,100+i*40+Math.sin(t+i)*30,0,Math.PI*2);ctx.stroke();}requestAnimationFrame(draw);}draw();
+</script></body></html>
